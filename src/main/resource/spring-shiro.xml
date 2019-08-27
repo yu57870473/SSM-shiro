@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+    	http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <!--配置securityManager-->
+        <property name="securityManager" ref="securityManager"/>
+        <!--登录的url 如果不配置该属性,默认寻找根目录下的 login.jsp作为loginUrl-->
+        <property name="loginUrl" value="/login"/>
+        <!--配置认证成功后跳转到哪个url上,通常不配置,如果不设置,那么默认成功后跳转到上一个url-->
+        <property name="successUrl" value="/index"/>
+        <!--配置用户没有资源权限时,跳转的页面-->
+        <property name="unauthorizedUrl" value="/register"/>
+        <property name="filterChainDefinitions" >
+            <value>
+
+                /toregister=anon
+                /register=anon
+                /login=authc
+                /logout=logout
+                /js/**=anon
+                /css/**=anon
+                /image/**=anon
+                /**=authc
+            </value>
+        </property>
+    </bean>
+    <!--配置securityManager-->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="userRealm"/>
+    </bean>
+    <bean id="userRealm" class="com.ym.realm.userRealm">
+    </bean>
+</beans>
