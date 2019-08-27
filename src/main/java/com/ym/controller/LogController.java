@@ -53,6 +53,8 @@ public class LogController {
     @RequestMapping("login")
     public String login(HttpSession session , HttpServletRequest req){
         String className=(String) req.getAttribute("shiroLoginFailure");
+        System.out.println(className);
+        System.out.println(className);
         if(session.getAttribute("user")!=null){
             return "forward:/index";
         }else if(UnknownAccountException.class.getName().equals(className)) {
