@@ -30,6 +30,12 @@
             </value>
         </property>
     </bean>
+    <!--配置authc过滤器-->
+    <bean id="authc" class="org.apache.shiro.web.filter.authc.FormAuthenticationFilter">
+        <!--登录form中参数的name不一定是username,可以在这里单独配置-->
+        <property name="usernameParam" value="name"/>
+        <property name="passwordParam" value="pwd"/>
+    </bean>
     <!--配置logout过滤器-->
     <bean id="logout" class="org.apache.shiro.web.filter.authc.LogoutFilter">
         <property name="redirectUrl" value="/login"/>
