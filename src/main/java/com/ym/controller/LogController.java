@@ -53,16 +53,16 @@ public class LogController {
     }
     @RequestMapping(value = {"/","login"})
     public ModelAndView login(HttpServletRequest req,HttpSession session){
+        //清除session中的shiroSavedRequest,不然spring-shiro中的successUrl会被shiroSavedRequest中的值覆盖,successUrl不生效
+        //若不清除shiroSavedRequest,则默认登陆成功后跳转到上一个访问的页面
+        session.removeAttribute("shiroSavedRequest");
         ModelAndView mv=new ModelAndView("login");
         String className=(String) req.getAttribute("shiroLoginFailure");
         if(UnknownAccountException.class.getName().equals(className)) {
             req.setAttribute("msg","用户名或密码有误");
         }else if(IncorrectCredentialsException.class.getName().equals(className)) {
             req.setAttribute("msg","用户名或密码有误");
-        }else if(session!=null){
-            session.removeAttribute("shiroSavedRequest");
-        }
-        else {
+        }else {
             req.removeAttribute("msg");
         }
         return mv;
