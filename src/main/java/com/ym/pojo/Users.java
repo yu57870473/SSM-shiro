@@ -5,6 +5,7 @@ public class Users {
     private String username;
     private String password;
     private String photoname;
+    private String salt;
 
     public int getId() {
         return id;
@@ -36,6 +37,14 @@ public class Users {
 
     public void setPhotoname(String photoname) {
         this.photoname = photoname;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 
     @Override

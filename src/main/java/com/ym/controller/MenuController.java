@@ -24,7 +24,6 @@ public class MenuController {
         Subject subject= SecurityUtils.getSubject();
         Users users = (Users) subject.getPrincipal();
         session.setAttribute("user",users);
-        System.out.println(session.getAttribute("user"));
         return "index";
     }
     @RequestMapping(value = {"show"})
