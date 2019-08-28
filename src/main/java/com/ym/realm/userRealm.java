@@ -9,6 +9,7 @@ import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.util.ByteSource;
 
 import javax.annotation.Resource;
 
@@ -24,7 +25,7 @@ public class userRealm  extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         String username=token.getPrincipal().toString();
         Users users=usersService.selUserByUsername(username);
-        SimpleAuthenticationInfo info=new SimpleAuthenticationInfo(users,users.getPassword(),getName());
+        SimpleAuthenticationInfo info=new SimpleAuthenticationInfo(users,users.getPassword(), ByteSource.Util.bytes(users.getSalt()),getName());
         return info;
     }
     //授权

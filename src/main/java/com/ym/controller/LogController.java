@@ -8,6 +8,7 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
@@ -50,21 +51,21 @@ public class LogController {
         }
 
     }
-    @RequestMapping("login")
-    public String login(HttpSession session , HttpServletRequest req){
+    @RequestMapping(value = {"/","login"})
+    public ModelAndView login(HttpServletRequest req,HttpSession session){
+        ModelAndView mv=new ModelAndView("login");
         String className=(String) req.getAttribute("shiroLoginFailure");
-        if(session.getAttribute("user")!=null){
-            return "forward:/index";
-        }else if(UnknownAccountException.class.getName().equals(className)) {
+        if(UnknownAccountException.class.getName().equals(className)) {
             req.setAttribute("msg","用户名或密码有误");
-            return "login";
         }else if(IncorrectCredentialsException.class.getName().equals(className)) {
             req.setAttribute("msg","用户名或密码有误");
-            return "login";
-        }else {
-            req.removeAttribute("msg");
-            return "login";
+        }else if(session!=null){
+            session.removeAttribute("shiroSavedRequest");
         }
+        else {
+            req.removeAttribute("msg");
+        }
+        return mv;
 
     }
 

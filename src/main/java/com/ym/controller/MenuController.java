@@ -19,7 +19,7 @@ public class MenuController {
     @Resource
     private MenuService menuService;
 
-    @RequestMapping(value = {"/","index"})
+    @RequestMapping(value = {"index"})
     public String index(HttpSession session){
         Subject subject= SecurityUtils.getSubject();
         Users users = (Users) subject.getPrincipal();
