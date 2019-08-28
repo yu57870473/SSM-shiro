@@ -31,6 +31,8 @@ public class userRealm  extends AuthorizingRealm {
     //授权
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
+        //获取身份信息 该认证信息在认证的时候传入的
+        Users users =(Users) principalCollection.getPrimaryPrincipal();
         return null;
     }
 
