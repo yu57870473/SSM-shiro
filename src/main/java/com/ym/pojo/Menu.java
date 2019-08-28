@@ -1,8 +1,9 @@
 package com.ym.pojo;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Menu {
+public class Menu implements Serializable {
     private int id;
     private String name;
     private int pid;
