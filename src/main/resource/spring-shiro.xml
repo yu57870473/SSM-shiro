@@ -17,7 +17,6 @@
         <property name="unauthorizedUrl" value="/register"/>
         <property name="filterChainDefinitions" >
             <value>
-
                 /favicon.ico=anon
                 /toregister=anon
                 /register=anon
